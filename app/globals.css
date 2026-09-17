@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Globandina | Raíces del Futuro — Sistema base
+   ========================================================================== */
+
+:root {
+  /* Paleta */
+  --negro: #0f0f0f;
+  --azul-noche: #09090f;
+  --dorado: #c9a227;
+  --azul: #4da8da;
+  --verde: #5e8b7e;
+  --rojo: #a63d40;
+  --marron: #8b5e3c;
+  --beige: #d8c3a5;
+  --texto-secundario: rgba(216, 195, 165, 0.38);
+
+  --background: var(--negro);
+  --foreground: var(--beige);
+}
+
+/* Mapeo de tokens para Tailwind v4 */
+@theme inline {
+  --color-negro: var(--negro);
+  --color-azul-noche: var(--azul-noche);
+  --color-dorado: var(--dorado);
+  --color-azul: var(--azul);
+  --color-verde: var(--verde);
+  --color-rojo: var(--rojo);
+  --color-marron: var(--marron);
+  --color-beige: var(--beige);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: var(--font-playfair);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--negro);
+  color: var(--beige);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Ocultamos el cursor nativo solo cuando usamos el personalizado */
+  body.custom-cursor,
+  body.custom-cursor a,
+  body.custom-cursor button {
+    cursor: none;
+  }
+}
+
+/* ==========================================================================
+   Tipografía
+   ========================================================================== */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+.font-serif-poetic {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+.h1-hero {
+  font-size: clamp(2.4rem, 7vw, 6.5rem);
+}
+.h-section {
+  font-size: clamp(1.9rem, 5vw, 3.4rem);
+}
+.p-fluid {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+.label-mini {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Utilidades
+   ========================================================================== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(216, 195, 165, 0.12);
+  border-radius: 16px;
+}
+
+.text-secundario {
+  color: var(--texto-secundario);
+}
+
+/* Patrón geométrico andino (rombos / grecas) como textura repetida */
+.andean-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.2'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z'/%3E%3Cpath d='M40 20 L60 40 L40 60 L20 40 Z'/%3E%3Cpath d='M40 34 L46 40 L40 46 L34 40 Z'/%3E%3Cpath d='M0 40 L40 0 M40 80 L80 40 M0 40 L40 80 M40 0 L80 40'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 80px 80px;
+}
+
+/* Texto con brillo dorado animado */
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--dorado) 20%,
+    #f4e3a1 40%,
+    var(--dorado) 60%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4.5s linear infinite;
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--dorado);
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  width: 100%;
+}
+
+/* Foco visible dorado accesible */
+:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ==========================================================================
+   Keyframes
+   ========================================================================== */
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 0.6;
+    filter: blur(55px);
+  }
+}
+
+@keyframes bounce-ud {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.animate-float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 7s ease-in-out infinite;
+}
+.animate-bounce-ud {
+  animation: bounce-ud 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   prefers-reduced-motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float-y,
+  .animate-glow-pulse,
+  .animate-bounce-ud,
+  .shimmer-text {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+  }
+}
